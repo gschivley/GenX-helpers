@@ -5,6 +5,7 @@ Misc helper files for working with GenX inputs/results
 All files are (currently) written in Python. Installing the `powergenome` [conda environment from PowerGenome](https://github.com/gschivley/PowerGenome#installation) will cover most of the requirements. Additional dependencies include:
 
 - [altair](https://altair-viz.github.io/index.html) for figures (`conda install -c conda-forge altair`)
+- [altair-saver](https://github.com/altair-viz/altair_saver/tree/master) to install selenium and other binaries for saving altair files without having to install `node` (`conda install -c conda-forge altair-saver`)
 - [typer](https://typer.tiangolo.com/) for command line options in `compile_results.py` (`pip install typer`)
 
 ## File descriptions
