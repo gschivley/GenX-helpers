@@ -904,7 +904,7 @@ def calc_energy_cost(total_dict, region_dict, years):
     idx = pd.IndexSlice
 
     # This should probably be moved out of this function
-    extra_az_costs = calc_all_costs()
+    # extra_az_costs = calc_all_costs()
 
     for year in years:
         total_dict[year]["energy_cost"] = total_dict[year]["costs"][["cTotal"]].merge(
@@ -919,28 +919,28 @@ def calc_energy_cost(total_dict, region_dict, years):
             total_dict[year]["energy_cost"].reset_index().round(2)
         )
 
-        for case in extra_az_costs.index.levels[-1]:
-            for col in [
-                "Net Trade Costs",
-                "RPS Costs",
-                "CES Costs",
-                "Total Extra Costs",
-            ]:
-                region_dict[year]["costs"].loc[
-                    idx[case, "WECC_AZ"], col
-                ] = extra_az_costs.loc[idx[year, case], col]
+        # for case in extra_az_costs.index.levels[-1]:
+        #     for col in [
+        #         "Net Trade Costs",
+        #         "RPS Costs",
+        #         "CES Costs",
+        #         "Total Extra Costs",
+        #     ]:
+        #         region_dict[year]["costs"].loc[
+        #             idx[case, "WECC_AZ"], col
+        #         ] = extra_az_costs.loc[idx[year, case], col]
 
-        component_cost_cols = ["cFix", "cVar", "cNSE", "cStart", "Total Extra Costs"]
-        region_dict[year]["costs"]["Total Cost"] = (
-            region_dict[year]["costs"].loc[:, component_cost_cols].sum(axis=1)
-        )
-        region_dict[year]["energy_cost"] = (
-            region_dict[year]["costs"]["Total Cost"]
-            / region_dict[year]["demand"]["Total Demand"]
-        ).round(2)
-        region_dict[year]["energy_cost"] = region_dict[year]["energy_cost"].loc[
-            idx[:, "WECC_AZ"],
-        ]
+        # component_cost_cols = ["cFix", "cVar", "cNSE", "cStart", "Total Extra Costs"]
+        # region_dict[year]["costs"]["Total Cost"] = (
+        #     region_dict[year]["costs"].loc[:, component_cost_cols].sum(axis=1)
+        # )
+        # region_dict[year]["energy_cost"] = (
+        #     region_dict[year]["costs"]["Total Cost"]
+        #     / region_dict[year]["demand"]["Total Demand"]
+        # ).round(2)
+        # region_dict[year]["energy_cost"] = region_dict[year]["energy_cost"].loc[
+        #     idx[:, "WECC_AZ"],
+        # ]
 
     return total_dict, region_dict
 
