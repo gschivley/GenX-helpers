@@ -625,18 +625,27 @@ def make_tx_spur_fig(
         ),
     )
 
-    (
-        alt.layer(spur_distance, spur_cost).resolve_scale(y="independent")
-        | alt.layer(tx_distance, tx_cost).resolve_scale(y="independent")
-    ).configure_view(strokeWidth=0).configure_axis(grid=False).save(
-        file_name, scale_factor=scale_factor, webdriver="firefox",
+    chart = (
+        (
+            alt.layer(spur_distance, spur_cost).resolve_scale(y="independent")
+            | alt.layer(tx_distance, tx_cost).resolve_scale(y="independent")
+        )
+        .configure_view(strokeWidth=0)
+        .configure_axis(grid=False)
     )
+
+    if file_name is None:
+        return chart
+    else:
+        chart.save(
+            file_name, scale_factor=scale_factor, webdriver="firefox",
+        )
 
 
 def make_cap_change_fig(
     total_dict,
     case_list,
-    file_name,
+    file_name=None,
     scale_factor=2,
     yaxis_title_font_size=14,
     xaxis_label_font_size=12,
@@ -676,11 +685,19 @@ def make_cap_change_fig(
 
         chart_list.append(chart)
 
-    alt.hconcat(*chart_list).configure_view(strokeWidth=0).configure_axis(
-        grid=False
-    ).resolve_scale(y="shared").save(
-        file_name, scale_factor=scale_factor, webdriver="firefox",
+    chart = (
+        alt.hconcat(*chart_list)
+        .configure_view(strokeWidth=0)
+        .configure_axis(grid=False)
+        .resolve_scale(y="shared")
     )
+
+    if file_name is None:
+        return chart
+    else:
+        chart.save(
+            file_name, scale_factor=scale_factor, webdriver="firefox",
+        )
 
 
 def make_tx_line_fig(
@@ -756,7 +773,7 @@ def make_tx_line_fig(
 def make_cost_co2_cap_energy_fig(
     total_dict,
     case_list,
-    file_name,
+    file_name=None,
     scale_factor=2,
     yaxis_title_font_size=14,
     xaxis_label_font_size=12,
@@ -848,11 +865,18 @@ def make_cost_co2_cap_energy_fig(
         )
     )
 
-    (cost_emissions | cap | energy).configure_view(strokeWidth=0).configure_axis(
-        grid=False
-    ).save(
-        file_name, scale_factor=scale_factor, webdriver="firefox",
+    chart = (
+        (cost_emissions | cap | energy)
+        .configure_view(strokeWidth=0)
+        .configure_axis(grid=False)
     )
+
+    if file_name is None:
+        return chart
+    else:
+        chart.save(
+            file_name, scale_factor=scale_factor, webdriver="firefox",
+        )
 
 
 def make_figures(total_dict, region_dict):
