@@ -480,12 +480,12 @@ def build_results(year, prev_spur_costs, prev_tx_costs):
     total_dict = {}
 
     region_dict["capacity"] = compare_capacity(year)
-    if year == 2030:
-        region_dict["capacity"] = add_coal_retirements(
-            region_dict["capacity"],
-            "No Policy",
-            ["Coal Phaseout", "Coal Phaseout No New Gas"],
-        )
+    # if year == 2030:
+    #     region_dict["capacity"] = add_coal_retirements(
+    #         region_dict["capacity"],
+    #         "No Policy",
+    #         ["Coal Phaseout", "Coal Phaseout No New Gas"],
+    #     )
     total_dict["capacity"] = (
         region_dict["capacity"].groupby(["Category", "Resource Name"]).sum()
     )
